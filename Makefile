@@ -72,7 +72,7 @@ images: image_bins
 pushimages: image_bins
 	for name in controller-manager scheduler webhook-manager; do\
 		cp ${BIN_DIR}/${REL_OSARCH}/vc-$$name ./installer/dockerfile/$$name/; \
-		docker build --no-cache -t $(IMAGE_PREFIX)-$$name:$(TAG) ./installer/dockerfile/$$name; \
+		docker build --no-cache -t $(IMAGE_PREFIX)-$$name:$(TAG) ./installer/dockerfile/$$name --build-arg TAG=${TAG}; \
 		docker tag $(IMAGE_PREFIX)-$$name:$(TAG) ${IMAGE_HUB}/$(IMAGE_PREFIX)-$$name:$(TAG); \
 		docker push ${IMAGE_HUB}/$(IMAGE_PREFIX)-$$name:$(TAG); \
 		rm installer/dockerfile/$$name/vc-$$name; \
